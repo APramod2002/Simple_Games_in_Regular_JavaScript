@@ -5,25 +5,25 @@ let newbtn = document.getElementById('new');
 let digitButtons = document.querySelectorAll('.digit');
 let table = document.getElementById('tbody-stat');
 
-function updateDisplay() {
-    guess.textContent = game.yourGuess.join(', ');
-}
 
 function resetGame() {
     game.newSecretKey();
     key.textContent = game.secretKey.join(', ');
     game.yourGuess = [];
-    updateDisplay();
+    guess.textContent = game.yourGuess.join(', ');
     table.innerHTML = '';
+    digitButtons.forEach(button =>{
+        button.disabled = false;
+    });
+    
 }
-
-newbtn.addEventListener('click', resetGame);
 
 digitButtons.forEach(button => {
     button.addEventListener('click', function() {
-        if (game.yourGuess.length < 3) {
-            game.yourGuess.push(parseInt(this.textContent));
-            updateDisplay();
+        let num = this.textContent;
+        if (game.yourGuess.length < 3 && !game.yourGuess.includes(num)) {
+            game.yourGuess.push(num);
+            guess.textContent = game.yourGuess.join(', ');
             
             if (game.yourGuess.length === 3) {
                 let result = game.makeGuess(game.yourGuess.join(''));
@@ -37,10 +37,14 @@ digitButtons.forEach(button => {
                 
                 if (result.strikes === 3) {
                     alert(`Strike Out---\nThe key was ${game.secretKey}\n<New> to play again.`);
-                    updateDisplay();
+                    digitButtons.forEach(button =>{
+                        button.disabled = true;
+                    });
+                    guess.textContent="";
+                    
                 } else {
                     game.yourGuess = []; 
-                    updateDisplay();
+                    guess.textContent = game.yourGuess.join(', ');
                 }
             }
         }
@@ -48,4 +52,4 @@ digitButtons.forEach(button => {
 });
 
 
-resetGame();
+newbtn.addEventListener('click', resetGame);
