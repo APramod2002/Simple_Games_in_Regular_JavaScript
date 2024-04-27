@@ -15,8 +15,14 @@ let pokerGame = {
    currentBank : null,
    currentBet : null,
    placeBet : function() {
-      this.currentBank -= this.currentBet;
-      return this.currentBank;
+      if(this.currentBank >= this.currentBet){
+         this.currentBank -= this.currentBet;
+         return this.currentBank;
+      }
+      else{
+         return null;
+      }
+
    },
    payBet : function(type){
       let pay = 0;

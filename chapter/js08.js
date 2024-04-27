@@ -32,7 +32,7 @@ function playDrawPoker() {
    bankBox.value = pokerGame.currentBank;
 
    betSelection.onchange = function(){
-      pokerGame.currentBank = parseInt(this.value);
+      pokerGame.currentBet = parseInt(this.value);
    }
 
    let hand = new pokerHand(5);
