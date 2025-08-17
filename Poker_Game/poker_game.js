@@ -7,7 +7,7 @@
       Author: 
       Date:       
 
-      Filename:       js08.js
+      Filename:       poker_game.js
  */
 
 window.addEventListener("load", playDrawPoker);
